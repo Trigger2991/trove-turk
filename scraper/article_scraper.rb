@@ -30,23 +30,12 @@ class ArticleScraper
           line.words << Word.new(word)
         end
 
-        x = (textarea.attr('x').to_i * SCALE[:level_scale] / SCALE[:maxLevel_scale]).floor + (SCALE[:level_offset_x] + SCALE[:viewer_x]).floor
-        y = (textarea.attr('y').to_i * SCALE[:level_scale] / SCALE[:maxLevel_scale]).floor + (SCALE[:level_offset_y] + SCALE[:viewer_y]).floor
-        width = (textarea.attr('ww').to_i * SCALE[:level_scale]).floor
-        height = (textarea.attr('wh').to_i * SCALE[:level_scale]).floor
-
-        # adjust fit
-        x -= EXPAND_SIZE_BY
-        y -= EXPAND_SIZE_BY
-        width += EXPAND_SIZE_BY * 2
-        height += EXPAND_SIZE_BY * 2
-
-        line.words[0].frame = {
-          x: x,
-          y: y,
-          width: width,
-          height: height
-        }
+        line.words[0].frame = expand({
+          x: (textarea.attr('x').to_i * SCALE[:level_scale] / SCALE[:maxLevel_scale]).floor + (SCALE[:level_offset_x] + SCALE[:viewer_x]).floor,
+          y: (textarea.attr('y').to_i * SCALE[:level_scale] / SCALE[:maxLevel_scale]).floor + (SCALE[:level_offset_y] + SCALE[:viewer_y]).floor,
+          width: (textarea.attr('ww').to_i * SCALE[:level_scale]).floor,
+          height: (textarea.attr('wh').to_i * SCALE[:level_scale]).floor
+        }, EXPAND_SIZE_BY)
       end
 
       puts "Found #{article.lines.count} lines with #{article.lines.map { |l| l.words.count }.inject(&:+)} words"
@@ -61,6 +50,15 @@ class ArticleScraper
   def get_url(url)
     puts "GET #{url}"
     Net::HTTP.get URI(url)
+  end
+
+  def expand(rect, by)
+    {
+      x: rect[:x] + by,
+      y: rect[:y] + by,
+      width: rect[:width] + (by * 2),
+      height: rect[:height] + (by * 2)
+    }
   end
 end
 
