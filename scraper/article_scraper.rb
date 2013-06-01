@@ -13,8 +13,8 @@ class ArticleScraper
     maxLevel_scale: 1.0,
     level_offset_x: 777,
     level_offset_y: 340,
-    viewer_x: -2846.0,
-    viewer_y: -612
+    viewer_x: -2854.0,
+    viewer_y: -620
   }
 
   def scrape_url(url)
