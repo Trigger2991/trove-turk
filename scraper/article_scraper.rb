@@ -6,14 +6,15 @@ require './model/line'
 require './model/word'
 
 class ArticleScraper
+  TEMP_ARTICLE_IMAGE = 'img.jpg'
   EXPAND_SIZE_BY = 4
   SCALE = {
     level_scale: 0.67,
     maxLevel_scale: 1.0,
     level_offset_x: 777,
     level_offset_y: 340,
-    viewer_x: -2846.0,
-    viewer_y: -612
+    viewer_x: -2854.0,
+    viewer_y: -620
   }
 
   def scrape_url(url)
@@ -36,10 +37,15 @@ class ArticleScraper
           width: (textarea.attr('ww').to_i * SCALE[:level_scale]).floor,
           height: (textarea.attr('wh').to_i * SCALE[:level_scale]).floor
         }, EXPAND_SIZE_BY)
+
+        line.words.each do |word|
+          next unless word.frame
+
+          extract_word_from_image TEMP_ARTICLE_IMAGE, word
+        end
       end
 
       puts "Found #{article.lines.count} lines with #{article.lines.map { |l| l.words.count }.inject(&:+)} words"
-
       article.save!
     else
       raise "Couldn't find article_id and page_id in URL"
@@ -60,18 +66,11 @@ class ArticleScraper
       height: rect[:height] + (by * 2)
     }
   end
-end
 
-scraper_worker = Thread.new do
-  scraper = ArticleScraper.new
-  
-  while true
-    begin
-      scraper.scrape_url 'http://trove.nla.gov.au/ndp/del/article/4256657/826890?zoomLevel=3#pstart826890'
-    rescue => ex
-      puts ex
-    end
-
-    sleep 120
+  def extract_word_from_image(image, word)
+    `convert -crop '#{word.frame[:width]}x#{word.frame[:height]}+#{word.frame[:x]}+#{word.frame[:y]}' #{image} words/#{word.id}.jpg`
   end
 end
+
+scraper = ArticleScraper.new
+scraper.scrape_url 'http://trove.nla.gov.au/ndp/del/article/4256657/826890?zoomLevel=3#pstart826890'

@@ -10,10 +10,12 @@
           //fetch_new_answer();
         },
         data: JSON.stringify({
-          id: 'abc',
+          id: $('#id').val(),
           text: $('#answer').val()
         })
       })
+      $('#id').val($('#id').val() + '1')
+      $('#answer').val('')
       return false
     })
 
