@@ -42,7 +42,7 @@ def random_element(list)
 end
 
 def fetch_articles
-  uri = URI('http://localhost:9001/articles.json')
+  uri = URI('http://localhost:9001/articles')
   res = Net::HTTP.get(uri)
   JSON.parse(res)
 end

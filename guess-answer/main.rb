@@ -19,7 +19,10 @@ post '/answers/new' do
   cross_origin
   content_type "application/json", :charset => 'utf-8'
   data = JSON.parse(request.body.read)
-  answers.push(data)
+  answers.push({
+    'id' => data['id'],
+    'text' => data['text']
+  })
   nil
 end
 
