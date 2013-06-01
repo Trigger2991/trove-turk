@@ -72,16 +72,5 @@ class ArticleScraper
   end
 end
 
-scraper_worker = Thread.new do
-  scraper = ArticleScraper.new
-  
-  while true
-    begin
-      scraper.scrape_url 'http://trove.nla.gov.au/ndp/del/article/4256657/826890?zoomLevel=3#pstart826890'
-    rescue => ex
-      puts ex
-    end
-
-    sleep 120
-  end
-end
+scraper = ArticleScraper.new
+scraper.scrape_url 'http://trove.nla.gov.au/ndp/del/article/4256657/826890?zoomLevel=3#pstart826890'
