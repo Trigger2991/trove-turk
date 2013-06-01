@@ -6,7 +6,8 @@
         type: 'post',
         contentType: 'application/json; charset=utf-8',
         success: function(result) {
-          console.log(result)
+          console.log(result);
+          //fetch_new_answer();
         },
         data: JSON.stringify({
           id: 'abc',
@@ -16,5 +17,17 @@
       return false
     })
 
+    //fetch_new_answer();
   })
+
+  function fetch_new_answer() {
+    $.get(
+      'http://localhost:9002/question.json',
+      function(data) {
+        question = JSON.parse(data);
+        console.log(question);
+      }
+    );
+  }
+  
 })()

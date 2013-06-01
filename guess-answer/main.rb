@@ -3,7 +3,7 @@ require 'json'
 require 'sinatra/cross_origin'
 
 set :port, 9004
-set :allow_origin, :any
+#set :allow_origin, :any
 set :allow_methods, [:get, :post, :options]
 set :allow_credentials, true
 set :protection, :origin_whitelist => ['http://localhost:9003']
@@ -28,7 +28,6 @@ options '/answers/new' do
   response['Access-Control-Allow-Headers'] = 'Content-Type'
   ''
 end
-
 
 get '/answers' do
   cache_control :no_cache
