@@ -1,21 +1,37 @@
 require 'sinatra'
 require 'json'
+require 'sinatra/cross_origin'
 
 set :port, 9004
+set :allow_origin, :any
+set :allow_methods, [:get, :post, :options]
+set :allow_credentials, true
+set :protection, :origin_whitelist => ['http://localhost:9003']
 
-data_store = []
+configure do
+  enable :cross_origin
+end
 
-post '/answer' do
+answers = []
+
+post '/answers/new' do
   cache_control :no_cache
+  cross_origin
   content_type "application/json", :charset => 'utf-8'
   data = JSON.parse(request.body.read)
-  data_store.push(data)
+  answers.push(data)
   nil
 end
 
+options '/answers/new' do
+  cross_origin
+  response['Access-Control-Allow-Headers'] = 'Content-Type'
+  ''
+end
 
-get '/answer' do
+
+get '/answers' do
   cache_control :no_cache
   content_type "application/json", :charset => 'utf-8'
-  data_store.to_json
+  answers.to_json
 end
