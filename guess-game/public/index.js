@@ -7,29 +7,35 @@
         contentType: 'application/json; charset=utf-8',
         success: function(result) {
           console.log(result);
-          //fetch_new_answer();
+          new_question();
+          $('#answer').focus();
         },
         data: JSON.stringify({
           id: $('#id').val(),
           text: $('#answer').val()
         })
       })
-      $('#id').val($('#id').val() + '1')
       $('#answer').val('')
       return false
     })
 
-    //fetch_new_answer();
+    new_question();
   })
 
-  function fetch_new_answer() {
+  function new_question() {
     $.get(
-      'http://localhost:9002/question.json',
+      'http://localhost:9002/question',
       function(data) {
-        question = JSON.parse(data);
-        console.log(question);
+        id = data["id"];
+        image_url = data["image"];
+        render_question(id, image_url);
       }
     );
+  }
+
+  function render_question(id, image_url) {
+    $('#id').val(id);
+    $('#image > img').attr('src', image_url)
   }
   
 })()
