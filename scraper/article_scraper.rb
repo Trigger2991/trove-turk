@@ -6,6 +6,7 @@ require './model/line'
 require './model/word'
 
 class ArticleScraper
+  TEMP_ARTICLE_IMAGE = 'img.jpg'
   EXPAND_SIZE_BY = 4
   SCALE = {
     level_scale: 0.67,
@@ -36,10 +37,15 @@ class ArticleScraper
           width: (textarea.attr('ww').to_i * SCALE[:level_scale]).floor,
           height: (textarea.attr('wh').to_i * SCALE[:level_scale]).floor
         }, EXPAND_SIZE_BY)
+
+        line.words.each do |word|
+          next unless word.frame
+
+          extract_word_from_image TEMP_ARTICLE_IMAGE, word
+        end
       end
 
       puts "Found #{article.lines.count} lines with #{article.lines.map { |l| l.words.count }.inject(&:+)} words"
-
       article.save!
     else
       raise "Couldn't find article_id and page_id in URL"
@@ -59,6 +65,10 @@ class ArticleScraper
       width: rect[:width] + (by * 2),
       height: rect[:height] + (by * 2)
     }
+  end
+
+  def extract_word_from_image(image, word)
+    `convert -crop '#{word.frame[:width]}x#{word.frame[:height]}+#{word.frame[:x]}+#{word.frame[:y]}' #{image} words/#{word.id}.jpg`
   end
 end
 
