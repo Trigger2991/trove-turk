@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'net/http'
 
 set :port, 9002
 
@@ -9,12 +10,12 @@ get '/question.json' do
     
     articles = fetch_articles
     article = random_element(articles)
-    line = random_element(article[:lines])
-    word = random_element(line[:words])
+    line = random_element(article["lines"])
+    word = random_element(line["words"])
 
     {
-      id: word[:id],
-      image: word[:image]
+      id: word["id"],
+      image: word["image"]
     }.to_json
 end
 
@@ -24,23 +25,7 @@ def random_element(list)
 end
 
 def fetch_articles
-  [
-    { 
-      lines: [
-        { 
-          words: [
-            {
-              id: "asdkjhg",
-              image: "http://localhost:9001/word/asdkjhg.jpg"
-            },          
-            {
-              id: "00001",
-              image: "http://localhost:9001/word/00001.jpg"
-            }
-
-          ]
-        }
-      ]
-    }
-  ]
+  uri = URI('http://localhost:9001/articles.json')
+  res = Net::HTTP.get(uri)
+  JSON.parse(res)
 end
