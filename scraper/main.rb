@@ -21,7 +21,7 @@ get '/articles.json' do
               id: word.id,
               text: word.text,
               frame: word.frame,
-              image: "/words/#{word.id}.jpg"
+              image: ("http://localhost:9001/words/#{word.id}.jpg" if word.frame)
             }
           }
         }
