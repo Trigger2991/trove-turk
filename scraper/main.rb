@@ -4,7 +4,7 @@ require './article_scraper'
 
 set :port, 9001
 
-get '/articles.json' do
+get '/articles' do
   cache_control :no_cache
   content_type "application/json", :charset => 'utf-8'
 
