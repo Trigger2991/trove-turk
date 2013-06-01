@@ -1,50 +1,9 @@
 require 'nokogiri'
 require 'json'
 require 'net/http'
-
-class Article
-  ALL = {}
-
-  def self.all
-    ALL.values
-  end
-
-  def self.find_by_article_id_and_page_id(article_id, page_id)
-    ALL["#{article_id}/#{page_id}"]
-  end
-
-  attr_reader :article_id, :page_id, :lines
-
-  def initialize(article_id, page_id)
-    @article_id = article_id
-    @page_id = page_id
-    @lines = []
-  end
-
-  def save!
-    ALL["#@article_id/#@page_id"] = self
-  end
-end
-
-class Line
-  attr_reader :id, :text, :words
-
-  def initialize(text)
-    @id = SecureRandom.uuid
-    @words = []
-    @text = text
-  end
-end
-
-class Word
-  attr_reader :id, :text
-  attr_accessor :frame
-
-  def initialize(text)
-    @id = SecureRandom.uuid
-    @text = text
-  end
-end
+require './model/article'
+require './model/line'
+require './model/word'
 
 class ArticleScraper
   EXPAND_SIZE_BY = 4
