@@ -7,7 +7,7 @@ set :port, 9002
 set :allow_origin, :any
 set :allow_methods, [:get, :post, :options]
 set :allow_credentials, true
-set :protection, :origin_whitelist => ['http://localhost:9003']
+set :protection, :origin_whitelist => ['*']
 
 configure do
   enable :cross_origin
@@ -32,7 +32,7 @@ end
 
 options '/question' do
   cross_origin
-  response['Access-Control-Allow-Headers'] = 'Content-Type'
+  response['Access-Control-Allow-Headers'] = 'Content-Type,X-Requested-With'
   ''
 end
 

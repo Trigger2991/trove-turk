@@ -2,7 +2,8 @@ GEM
   remote: https://www.rubygems.org/
   specs:
     coderay (1.0.9)
-    json (1.8.0)
+    haml (4.0.3)
+      tilt
     method_source (0.8.1)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -13,6 +14,7 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    sass (3.2.7)
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -25,8 +27,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  json
+  haml
   pry
   puma
+  sass
   sinatra (= 1.4.2)
   sinatra-cross_origin

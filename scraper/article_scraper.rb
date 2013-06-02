@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'json'
 require 'net/http'
+require 'securerandom'
 require './model/article'
 require './model/line'
 require './model/word'
