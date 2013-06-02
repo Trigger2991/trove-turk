@@ -1,7 +1,7 @@
 var question_service = 'localhost:9002'
 var answer_service = 'localhost:9004'
 
-(function() {
+;(function() {
   (function fetch_initial_questions() {
     $.get(
       'http://' + question_service + '/question?t=' + (+new Date()),
