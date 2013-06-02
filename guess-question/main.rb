@@ -13,7 +13,7 @@ configure do
   enable :cross_origin
 end
 
-get '/question.json' do
+get '/question' do
   cache_control :no_cache
   cross_origin
   content_type "application/json", :charset => 'utf-8'
