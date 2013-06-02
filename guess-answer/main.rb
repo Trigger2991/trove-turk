@@ -6,7 +6,7 @@ set :port, 9004
 #set :allow_origin, :any
 set :allow_methods, [:get, :post, :options]
 set :allow_credentials, true
-set :protection, :origin_whitelist => ['http://localhost:9003']
+set :protection, :origin_whitelist => ['*']
 
 configure do
   enable :cross_origin
