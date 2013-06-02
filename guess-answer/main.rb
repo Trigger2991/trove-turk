@@ -23,7 +23,7 @@ post '/answers/new' do
     'id' => data['id'],
     'text' => data['text']
   })
-  nil
+  {}.to_json
 end
 
 options '/answers/new' do

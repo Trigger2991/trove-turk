@@ -1,21 +1,80 @@
+body
+  overflow: hidden
+
 form
+  position: absolute
+  width: 200%
   text-align: center
 
 #answer, #submit
   font-size: 20pt
 
 #answer
-  display: block
-  width: 50%
+  position: absolute
+  top: 105px
+  width: 20%
+  left: 15%
   text-align: center
-  margin: 0 auto
 
 #submit
   -webkit-appearance: button
+  position: absolute
+  top: 160px
+  left: 19%
+  width: 12%
   
-#image
-  margin: 200px auto 50px auto
+#image1
+  left: 0
+  width: 50%
+  top: 50px
+  position: absolute
 
 #image2
-  position: relative
-  left: 100px
+  left: 50%
+  width: 50%
+  top: 50px
+  position: absolute
+
+#idholder
+  display: none
+
+#logo
+  position: absolute
+  left: 45%
+  top: 225px
+  width: 10%
+  margin: 0
+  padding: 0
+  text-align: center
+
+.slide_1
+  animation: slide1 1s ease-out
+  -webkit-animation: slide1 1s ease-out
+
+.slide_2
+  animation: slide2 1s ease-out
+  -webkit-animation: slide2 1s ease-out
+
+@keyframes slide1
+  0%   
+    left: 0
+  100% 
+    left: -50%
+
+@-webkit-keyframes slide1 /* Safari and Chrome */
+  0%   
+    left: 0
+  100% 
+    left: -50%
+
+@keyframes slide2
+  0%   
+    left: 50%
+  100% 
+    left: 0%
+
+@-webkit-keyframes slide2 /* Safari and Chrome */
+  0%   
+    left: 50%
+  100% 
+    left: 0%

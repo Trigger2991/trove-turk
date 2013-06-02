@@ -6,11 +6,14 @@
     %script{src: '/index.js', type: 'text/javascript'}
     %link{rel: 'stylesheet', href: '/index.css'}
   %body
+    #logo
+      %img{src: '/trove-logo.gif'}
     %form#guess
-      #image
+      #image1
         %img
       #image2
         %img
       %input#id{type: 'hidden'}
+      #idholder
       %input#answer{type: 'text', autocomplete: 'off', autofocus: 'on'} 
       %input#submit{type: 'submit', value: 'Submit'}
