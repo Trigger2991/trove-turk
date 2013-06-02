@@ -1,0 +1,7 @@
+source "https://www.rubygems.org"
+
+gem "sinatra", "1.4.2"
+gem "haml"
+gem "sass"
+gem "puma"
+gem "pry"

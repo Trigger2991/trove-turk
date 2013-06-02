@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title Trove Captcha
+    %script{src: '/jquery-2.0.1.min.js', type: 'text/javascript'}
+    %script{src: '/index.js', type: 'text/javascript'}
+    %link{rel: 'stylesheet', href: '/index.css'}
+  %body
+    .captcha
+      %h1
+        %img{ src: '/trove.gif' }
+        Captcha
+        %small Helping Digitise Australia's History
+      %h2 National Library of Australia
+
+      .images
+      .arrow
+      %input{ type: 'text', name: 'words', placeholder: 'Type the above words here' }
